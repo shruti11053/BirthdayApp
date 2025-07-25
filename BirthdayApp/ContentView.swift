@@ -20,7 +20,7 @@ struct ContentView: View {
     
         
         NavigationStack {
-            //this is an ARRAY
+            
             List(friends, id: \.name) { friend in
                 
                 HStack{
@@ -33,11 +33,20 @@ struct ContentView: View {
                 }
                 
                 .navigationTitle("Birthdays")
+                Button("Remove Birthday"){
+                    func deleteFriend(at offsets: IndexSet) {
+                        for index in offsets{
+                            let friendToDelete = friends[index]
+                            context.delete(friendToDelete)
                 
+                        }
+                                
+                    }
+                }
             
                     }
             
-            .safeAreaInset(edge: .bottom) {
+            .safeAreaInset(edge: .bottom){
                 VStack(alignment: .center, spacing: 20) {
                     Text("New Birthday")
                         .font(.headline)
@@ -49,6 +58,7 @@ struct ContentView: View {
                             .textFieldStyle(.roundedBorder)
                         
                     }
+                    
                     //after you input the information, the save button will add it to the array
                     
                     Button("Save"){
@@ -57,7 +67,10 @@ struct ContentView: View {
                         newName = ""
                         newBirthday = .now
                     }
+                    
                     .bold()
+                    
+                
                 }
                 
             }
